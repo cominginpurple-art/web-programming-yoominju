@@ -1,0 +1,278 @@
+/* 배경이랑 하쿠,치히로 이미지 */
+body {
+  margin: 0;
+  overflow-x: hidden;
+}
+
+.scene {
+  position: relative;
+  width: 200vw;
+  height: 100vh;
+}
+
+.background-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: relative;
+  z-index: -1;
+}
+
+.human {
+  position: absolute; /* 기존 fixed에서 변경 */
+  /* 기존 크기와 bottom, left 값은 유지 */
+}
+
+.scene.move {
+  animation: sceneMove 4s ease-in-out forwards;
+}
+
+@keyframes sceneMove {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100vw);
+  }
+}
+
+.human {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 70vh;
+  z-index: 1;
+  /* 이 z-index 때문에 이미지가 겹쳤을 때 숫자가 클수록 해당 이미지가 앞으로 나옴 */
+}
+
+.chihiro {
+  position: absolute;
+  bottom: 0;
+  left: 180vw;
+  transform: translateX(-50%);
+  height: 65vh;
+  width: auto;
+}
+/* hover하면 하쿠가 후 부는 모습으로 변하게 만들기 */
+.human img {
+  display: block;
+  height: 100%;
+  width: auto;
+  transition: 0.2s ease-out;
+}
+
+.human .hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0; /* 처음에는 숨기기 */
+}
+
+.human:hover .normal {
+  opacity: 0; /* 원래 이미지 숨기기 */
+}
+
+.human:hover .hover {
+  opacity: 1; /* 두 번째 이미지 보이기 */
+}
+
+/* 꽃잎 날아다니게 만들기 */
+.human .petal {
+  position: absolute;
+  top: 27%; /* 꽃잎이 출발할 높이 */
+  left: 63%; /* 꽃잎이 출발할 가로 위치 */
+  width: 25px;
+  height: auto;
+  opacity: 0;
+  pointer-events: none;
+
+  filter: brightness(1.3) drop-shadow(0 0 3px white)
+    drop-shadow(0 0 7px #ffe9a8);
+}
+
+.human.fly .petal {
+  animation: fly 1.8s ease-out both;
+}
+
+.human.fly .p1 {
+  --up: -80px;
+  animation-delay: 0s;
+}
+.human.fly .p2 {
+  --up: -160px;
+  animation-delay: 0.1s;
+}
+.human.fly .p3 {
+  --up: -30px;
+  animation-delay: 0.2s;
+}
+.human.fly .p4 {
+  --up: -200px;
+  animation-delay: 0.3s;
+}
+.human.fly .p5 {
+  --up: 40px;
+  animation-delay: 0.4s;
+}
+.human.fly .p6 {
+  --up: -110px;
+  animation-delay: 0.5s;
+}
+.human.fly .p7 {
+  --up: -50px;
+  animation-delay: 0.6s;
+}
+.human.fly .p8 {
+  --up: -240px;
+  animation-delay: 0.7s;
+}
+.human.fly .p9 {
+  --up: 70px;
+  animation-delay: 0.8s;
+}
+.human.fly .p10 {
+  --up: -140px;
+  animation-delay: 0.9s;
+}
+.human.fly .p11 {
+  --up: -70px;
+  animation-delay: 1s;
+}
+.human.fly .p12 {
+  --up: 20px;
+  animation-delay: 1.1s;
+}
+.human.fly .p13 {
+  --up: -180px;
+  animation-delay: 1.2s;
+}
+.human.fly .p14 {
+  --up: -100px;
+  animation-delay: 1.3s;
+}
+.human.fly .p15 {
+  --up: 50px;
+  animation-delay: 1.4s;
+}
+.human.fly .p16 {
+  --up: -220px;
+  animation-delay: 1.5s;
+}
+.human.fly .p17 {
+  --up: -40px;
+  animation-delay: 1.6s;
+}
+.human.fly .p18 {
+  --up: -130px;
+  animation-delay: 1.7s;
+}
+
+@keyframes fly {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) rotate(0deg);
+  }
+  1% {
+    opacity: 1;
+  }
+
+  40% {
+    filter: brightness(1.8) drop-shadow(0 0 10px white);
+  }
+
+  60% {
+    filter: brightness(1.2) drop-shadow(0 0 3px white);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(900px, var(--up)) rotate(240deg);
+  }
+}
+
+/* 포스터 타이틀이랑 크레딧 넣음 */
+
+.poster-title {
+  position: absolute;
+  left: 130vw;
+  top: 4vh;
+  width: 55vw;
+  height: auto;
+  transform: translateX(-50%);
+  opacity: 0;
+  z-index: 2;
+}
+
+.poster-credits {
+  position: absolute;
+  left: 150vw;
+  bottom: 1vh;
+  width: 80vw;
+  height: auto;
+  transform: translate(-50%, 17vh);
+  opacity: 0;
+  z-index: 2;
+}
+
+/* 화면 오른쪽으로 이동한 뒤에 글자 나타나기 */
+.scene.move .poster-title,
+.scene.move .poster-credits {
+  animation: textShow 1.5s ease-out 4s forwards;
+}
+
+@keyframes textShow {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* 용 이미지 넣기 */
+.dragon {
+  position: absolute;
+  top: 15vh;
+  left: 150vw;
+  width: 35vw;
+  height: auto;
+  z-index: 0;
+  /* 용 밝기 조절하기 */
+  filter: brightness(0.6);
+  pointer-events: auto; /* 용을 클릭할 수 있게 */
+  cursor: pointer;
+  transition: filter 0.5s ease;
+}
+
+/* 용보다 인물과 글자를 앞에 표시 */
+.human,
+.chihiro {
+  z-index: 1;
+}
+
+/* 용 누르면 잠깐 밝게 빛나게 하기 */
+.dragon:hover {
+  filter: brightness(0.7) drop-shadow(0 0 5px #ffe9b5);
+}
+
+/* 치히로랑 하쿠(용)이미지 넣기 */
+
+.hug {
+  position: absolute;
+  left: 130vw;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 100vh;
+  width: auto;
+  z-index: 1;
+  filter: brightness(0.6);
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 2s ease;
+}
+
+.hug.show {
+  opacity: 0.8;
+}
